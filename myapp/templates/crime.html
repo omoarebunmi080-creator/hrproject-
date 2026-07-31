@@ -1,0 +1,219 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crime Reports | Crime Location Reporting System</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f8fc;
+            color: #1f2937;
+        }
+        /* HEADER */
+        .header {
+            background: white;
+            border-bottom: 4px solid #07549a;
+            padding: 18px 15px;
+            text-align: center;
+        }
+        .logo {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 8px;
+        }
+        .header h1 {
+            margin: 5px 0;
+            color: #07549a;
+            font-size: 25px;
+        }
+        .header p {
+            margin: 5px 0 0;
+            color: #667085;
+            font-size: 14px;
+        }
+        /* MAIN CONTENT */
+        .container {
+            width: 94%;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+        .page-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .page-top h2 {
+            margin: 0;
+            color: #07549a;
+            font-size: 24px;
+        }
+        .home-button {
+            display: inline-block;
+            text-decoration: none;
+            background: #07549a;
+            color: white;
+            padding: 11px 18px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .home-button:hover {
+            background: #063e72;
+        }
+        /* TABLE */
+        .table-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        .table-scroll {
+            overflow-x: auto;
+            width: 100%;
+        }
+        table {
+            width: 100%;
+            min-width: 750px;
+            border-collapse: collapse;
+        }
+        th {
+            background: #07549a;
+            color: white;
+            padding: 14px 12px;
+            text-align: left;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        td {
+            padding: 13px 12px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+            vertical-align: top;
+        }
+        tbody tr:hover {
+            background: #f5f9fd;
+        }
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .empty-message {
+            text-align: center;
+            padding: 35px 15px;
+            color: #667085;
+        }
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            color: #667085;
+            font-size: 13px;
+        }
+        /* MOBILE */
+        @media (max-width: 600px) {
+            .header {
+                padding: 15px 10px;
+            }
+            .logo {
+                width: 65px;
+                height: 65px;
+            }
+            .header h1 {
+                font-size: 19px;
+                line-height: 1.4;
+            }
+            .header p {
+                font-size: 13px;
+            }
+            .container {
+                width: 92%;
+                margin: 20px auto;
+            }
+            .page-top {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .page-top h2 {
+                font-size: 20px;
+            }
+            .home-button {
+                text-align: center;
+                width: 100%;
+            }
+            .table-card {
+                border-radius: 8px;
+            }
+            th, td {
+                padding: 11px 10px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <img src="{% static 'images/logo.jpg' %}" alt="School Logo" class="logo">
+    <h1>Crime Location Reporting System</h1>
+    <p>Crime Reports and Incident Records</p>
+</header>
+
+<!-- MAIN CONTENT -->
+<main class="container">
+    <div class="page-top">
+        <h2>Reported Crimes</h2>
+        <a href="/" class="home-button">← Back to Home</a>
+    </div>
+
+    <!-- CRIME TABLE -->
+    <div class="table-card">
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Crime Type</th>
+                        <th>Location</th>
+                        <th>Description</th>
+                        <th>Date Reported</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for crime in crimes %}
+                    <tr>
+                        <td>{{ crime.crime_type }}</td>
+                        <td>{{ crime.location }}</td>
+                        <td>{{ crime.description }}</td>
+                        <td>{{ crime.date_reported|date:"d M Y, h:i A" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="empty-message">No crime reports have been recorded yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+    &copy; {% now "Y" %} Crime Location Reporting System
+</footer>
+
+</body>
+</html>

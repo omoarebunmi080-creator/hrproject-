@@ -1,0 +1,325 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Staff Directory | Koladaisi Management</title>
+
+<link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f8fc;
+            color: #17324d;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            border-bottom: 4px solid #0756a3;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .header img {
+            width: 65px;
+            height: 65px;
+            object-fit: contain;
+        }
+
+        .header-text h1 {
+            color: #0756a3;
+            font-size: 25px;
+        }
+
+        .header-text p {
+            color: #666;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        .hero {
+            background: #0756a3;
+            color: white;
+            text-align: center;
+            padding: 35px 15px;
+        }
+
+        .hero i {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .hero h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .hero p {
+            opacity: 0.9;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+
+        .table-card {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+
+th {
+            background: #0756a3;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 14px 15px;
+            border-bottom: 1px solid #e5edf5;
+            font-size: 14px;
+        }
+
+tbodytr:hover {
+            background: #f0f7ff;
+        }
+
+        .staff-name {
+            font-weight: bold;
+            color: #0756a3;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 50px 20px;
+            color: #777;
+        }
+
+        .empty i {
+            font-size: 45px;
+            color: #0756a3;
+            margin-bottom: 15px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 25px;
+            background: #0756a3;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+        }
+
+        .back-btn:hover {
+            background: #043d76;
+        }
+
+        .footer {
+            margin-top: 50px;
+            background: #0756a3;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+
+            .header {
+                padding: 15px 10px;
+            }
+
+            .header img {
+                width: 50px;
+                height: 50px;
+            }
+
+            .header-text h1 {
+                font-size: 19px;
+            }
+
+            .header-text p {
+                font-size: 12px;
+            }
+
+            .hero {
+                padding: 28px 12px;
+            }
+
+            .hero h2 {
+                font-size: 23px;
+            }
+
+            .container {
+                width: 96%;
+                margin-top: 20px;
+            }
+
+            /*
+               The table can scroll sideways on small phones
+               instead of breaking the page layout.
+            */
+
+            .table-wrapper {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+th, td {
+                padding: 12px;
+            }
+        }
+</style>
+</head>
+
+<body>
+
+<!-- SCHOOL HEADER -->
+<header class="header">
+
+<imgsrc="{% static 'images/logo.jpg' %}"
+         alt="School Logo">
+
+<div class="header-text">
+<h1>Koladaisi Management</h1>
+<p>Staff Management & Directory</p>
+</div>
+
+</header>
+
+
+<!-- PAGE INTRO -->
+<section class="hero">
+
+<i class="fa-solid fa-users"></i>
+
+<h2>Staff Directory</h2>
+
+<p>View registered members of staff</p>
+
+</section>
+
+
+<div class="container">
+
+<div class="table-card">
+
+        {% if staff_members %}
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+<tr>
+<th><i class="fa-solid fa-user"></i> Staff</th>
+<th><i class="fa-solid fa-building"></i> Department</th>
+<th><i class="fa-solid fa-briefcase"></i> Position</th>
+<th><i class="fa-solid fa-calendar"></i> Date Joined</th>
+<th><i class="fa-solid fa-cake-candles"></i> DOB</th>
+<th><i class="fa-solid fa-location-dot"></i> State of Origin</th>
+</tr>
+</thead>
+
+<tbody>
+
+                    {% for staff in staff_members %}
+
+<tr>
+
+<td class="staff-name">
+                            {{ staff.first_name }} {{ staff.last_name }}
+</td>
+
+<td>
+                            {{ staff.department }}
+</td>
+
+<td>
+                            {{ staff.position }}
+</td>
+
+<td>
+                            {{ staff.date_joined|date:"d M Y" }}
+</td>
+
+<td>
+                            {{ staff.dob|date:"d M Y" }}
+</td>
+
+<td>
+                            {{ staff.state_of_origin }}
+</td>
+
+</tr>
+
+                    {% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+        {% else %}
+
+<div class="empty">
+
+<i class="fa-solid fa-users-slash"></i>
+
+<h3>No Staff Members Yet</h3>
+
+<p>Staff members added through the administration page will appear here.</p>
+
+</div>
+
+        {% endif %}
+
+</div>
+
+
+<a href="/home/" class="back-btn">
+<i class="fa-solid fa-arrow-left"></i>
+        Back to Home
+</a>
+
+</div>
+
+
+<footer class="footer">
+&copy; 2026 Koladaisi Management. All Rights Reserved.
+</footer>
+
+</body>
+</html>

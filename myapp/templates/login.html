@@ -1,0 +1,564 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Koladaisi Management System</title>
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #eef5ff;
+            color: #222;
+            overflow-x: hidden;
+        }
+
+        /* ================= NAVBAR ================= */
+
+nav {
+            width: 100%;
+            background: #0b3d91;
+            color: white;
+            padding: 15px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.15);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: white;
+            padding: 3px;
+        }
+
+        .brand h2 {
+            font-size: 20px;
+            line-height: 1.2;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 550px;
+            padding: 70px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .hero-logo {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            background: white;
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+
+        }
+
+        .hero h1 {
+            color: #0b3d91;
+            font-size: clamp(32px, 6vw, 55px);
+            margin-top: 25px;
+        }
+
+        .hero h2 {
+            color: #333;
+            font-size: clamp(20px, 4vw, 30px);
+            margin-top: 10px;
+        }
+
+        .hero p {
+            max-width: 750px;
+            margin: 20px auto;
+            line-height: 1.8;
+            font-size: 17px;
+            color: #555;
+        }
+
+        /* ================= BUTTONS ================= */
+
+        .buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 25px;
+            background: #0b3d91;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn.secondary {
+            background: white;
+            color: #0b3d91;
+            border: 2px solid #0b3d91;
+        }
+
+        /* ================= CARDS ================= */
+
+        .features {
+            background: white;
+            padding: 70px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #0b3d91;
+            font-size: 32px;
+            margin-bottom: 40px;
+        }
+
+        .cards {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: #f8fbff;
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+            transition: 0.4s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .card i {
+            color: #0b3d91;
+            font-size: 38px;
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            color: #0b3d91;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* ================= ABOUT ================= */
+
+        .about {
+            padding: 70px 7%;
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 850px;
+            margin: auto;
+            line-height: 1.8;
+            color: #555;
+            font-size: 17px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #0b3d91;
+            color: white;
+            text-align: center;
+            padding: 25px 15px;
+        }
+
+        footer p {
+            margin: 5px;
+        }
+
+        /* ================= TABLET ================= */
+
+        @media (max-width: 900px) {
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+nav {
+                padding: 15px 4%;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+        }
+
+        /* ================= PHONE ================= */
+
+        @media (max-width: 600px) {
+
+nav {
+                flex-direction: column;
+                padding: 15px;
+                text-align: center;
+            }
+
+            .brand {
+                justify-content: center;
+            }
+
+            .brand h2 {
+                font-size: 18px;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 55px 20px;
+            }
+
+            .hero-logo {
+                width: 110px;
+                height: 110px;
+            }
+
+            .hero p {
+                font-size: 16px;
+                line-height: 1.7;
+            }
+
+            .buttons {
+                flex-direction: column;
+                align-items: stretch;
+                max-width: 320px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+
+            .features {
+                padding: 55px 20px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .card {
+                width: 100%;
+            }
+
+            .about {
+                padding: 55px 20px;
+            }
+
+        }
+
+</style>
+</head>
+
+
+<body>
+
+<!-- ================= NAVIGATION ================= -->
+
+<nav>
+
+<div class="brand">
+
+<imgsrc="{% static 'images/logo.jpg' %}"
+             alt="Koladaisi Logo">
+
+<h2>
+Koladaisi<br>
+            Management System
+</h2>
+
+</div>
+
+
+<div class="nav-links">
+
+<a href="/">
+<i class="fas fa-home"></i> Home
+</a>
+
+<a href="/admin/">
+<i class="fas fa-user-shield"></i> Admin
+</a>
+
+<a href="/crime/">
+<i class="fas fa-file-circle-exclamation"></i> Crime Reports
+</a>
+
+<a href="/staff/">
+    <i class="fas fa-users"></i> staff directory
+    </a>
+
+<a href="#about">
+<i class="fas fa-circle-info"></i> About
+</a>
+
+</div>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+<div class="hero-content">
+
+<img class="hero-logo"
+src="{% static 'images/logo.jpg' %}"
+             alt="Koladaisi University Logo">
+
+<h1>Welcome</h1>
+
+<h2>Koladaisi Crime Reporting & Management System</h2>
+
+<p>
+            Welcome to the Koladaisi Crime Reporting and Management
+            System. This platform provides authorized personnel with
+            an organized and secure way to report, manage, monitor
+            and review crime-related incidents within the institution.
+</p>
+
+
+<div class="buttons">
+
+<a href="/admin/" class="btn">
+<i class="fas fa-gauge-high"></i>
+                Admin Dashboard
+</a>
+
+<a href="/crimes/" class="btn secondary">
+<i class="fas fa-file-lines"></i>
+                View Crime Reports
+</a>
+
+<a href="/staff/" class="btn secondary">
+    <i class="fas fa-file-lines"></i>
+                    Staff Directory
+    </a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= FEATURES ================= -->
+
+<section class="features">
+
+<h2 class="section-title">
+        System Features
+</h2>
+
+
+<div class="cards">
+
+<div class="card">
+
+<i class="fas fa-shield-halved"></i>
+
+<h3>Crime Reporting</h3>
+
+<p>
+                Record and manage crime-related incidents
+                efficiently and systematically.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<i class="fas fa-user-shield"></i>
+
+<h3>Administration</h3>
+
+<p>
+                Authorized administrators can manage
+                records through a secure dashboard.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<i class="fas fa-chart-line"></i>
+
+<h3>Reports</h3>
+
+<p>
+                Organize and review crime reports to
+                support better decision-making.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<i class="fas fa-lock"></i>
+
+<h3>Security</h3>
+
+<p>
+                Designed to help protect important
+                institutional information.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= ABOUT ================= -->
+
+<section class="about" id="about">
+
+<h2 class="section-title">
+        About the System
+</h2>
+
+<p class="about-content">
+
+        The Koladaisi Crime Reporting and Management System
+        is designed to support effective recording, monitoring
+        and management of crime-related incidents within the
+        institution. It promotes organized record keeping,
+        accountability and a safer school environment.
+
+</p>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<p>
+<strong>Koladaisi Management System</strong>
+</p>
+
+<p>
+        Crime Reporting & Management Portal
+</p>
+
+<p>
+        © 2026 All Rights Reserved
+</p>
+
+</footer>
+
+
+</body>
+</html>
